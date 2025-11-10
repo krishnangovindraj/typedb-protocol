@@ -86,29 +86,38 @@ message Analyze {
 
             message Match {
               uint32 block = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
             }
             message Insert {
               uint32 block = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
             }
             message Put {
               uint32 block = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
             }
             message Update {
               uint32 block = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
             }
             message Delete {
               uint32 block = 1;
               repeated AnalyzedConjunction.Variable deleted_variables = 2;
+              repeated AnalyzedConjunction.Variable output_variables = 3;
             }
 
             message Select {
               repeated AnalyzedConjunction.Variable variables = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
             }
             message Sort {
               repeated SortVariable sort_variables = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
+
               message SortVariable {
                 AnalyzedConjunction.Variable variable = 1;
                 SortDirection direction = 2;
+
                 enum SortDirection {
                   ASC = 0;
                   DESC = 1;
@@ -117,17 +126,23 @@ message Analyze {
             }
             message Require {
               repeated AnalyzedConjunction.Variable variables = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
             }
             message Offset {
               uint64 offset = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
             }
             message Limit {
               uint64 limit = 1;
+              repeated AnalyzedConjunction.Variable output_variables = 2;
             }
-            message Distinct {}
+            message Distinct {
+              repeated AnalyzedConjunction.Variable output_variables = 1;
+            }
             message Reduce {
               repeated ReduceAssign reducers = 1;
               repeated AnalyzedConjunction.Variable groupby = 2;
+              repeated AnalyzedConjunction.Variable output_variables = 3;
 
               message ReduceAssign {
                 AnalyzedConjunction.Variable assigned = 1;
