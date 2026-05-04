@@ -6,6 +6,7 @@ syntax = "proto3";
 
 import "proto/analyze.proto";
 import "proto/answer.proto";
+import "proto/concept.proto";
 import "proto/options.proto";
 import "proto/error.proto";
 
@@ -22,6 +23,27 @@ message Query {
     message Req {
         Options.Query options = 1;
         string query = 2;
+        QueryInput input = 3;
+
+        message QueryInput {
+            repeated QueryInputRow rows = 1;
+        }
+
+        message QueryInputRow {
+            repeated QueryInputEntry entries = 1;
+        }
+
+        message QueryInputEntry {
+            oneof entry {
+                QueryInputEmpty empty = 1; // Optional None
+                Value value = 2;
+                // Entity entity = 3;
+                // Relation relation = 4;
+                // Attribute attribute = 5;
+
+            }
+        }
+        message QueryInputEmpty {}
     }
 
     message InitialRes {
