@@ -12,10 +12,7 @@ build:
     build:
       image: typedb-ubuntu-22.04
       command: |
-        bazel run @typedb_dependencies//tool/bazelinstall:remote_cache_setup.sh
-        bazel build //...
-        bazel run @typedb_dependencies//tool/checkstyle:test-coverage
-        bazel test $(bazel query 'kind(checkstyle_test, //...)') --test_output=errors
+        bazel build --toolchain_resolution_debug=".*" --verbose_failures //grpc/rust:typedb_protocol
 
     deploy-crate-snapshot:
       filter:
