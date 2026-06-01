@@ -13,6 +13,7 @@ build:
       image: typedb-ubuntu-22.04
       command: |
         bazel build --toolchain_resolution_debug=".*" --verbose_failures --explain=/tmp/bazel_explain.txt --verbose_explanations //grpc/rust:typedb_protocol
+        cat /tmp/bazel_explain.txt
 
     deploy-crate-snapshot:
       filter:
