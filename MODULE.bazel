@@ -59,15 +59,29 @@ use_repo(crate, "crates")
 # ===========================================================
 
 bazel_dep(name = "typedb_bazel_distribution", version = "0.0.0")
-git_override(
+local_path_override(
     module_name = "typedb_bazel_distribution",
-    remote = "https://github.com/typedb/bazel-distribution",
-    commit = "c34c0c513e45e69e3f9d97664c7ccb5afd5f1341",
+    path = "../bazel-distribution/",
 )
+#git_override(
+#    module_name = "typedb_bazel_distribution",
+#    remote = "https://github.com/typedb/bazel-distribution",
+#    commit = "c34c0c513e45e69e3f9d97664c7ccb5afd5f1341",
+#)
 
 bazel_dep(name = "typedb_dependencies", version = "0.0.0")
-git_override(
+local_path_override(
     module_name = "typedb_dependencies",
-    remote = "https://github.com/typedb/dependencies",
-    commit = "cdb696f58b0827c32e241f246b1b56360847679b",
+    path = "../dependencies/",
+)
+#git_override(
+#    module_name = "typedb_dependencies",
+#    remote = "https://github.com/typedb/dependencies",
+#    commit = "cdb696f58b0827c32e241f246b1b56360847679b",
+#)
+
+workspace_refs = use_repo_rule("@typedb_bazel_distribution//common/workspace_refs:rules.bzl", "_workspace_refs")
+workspace_refs(
+    name = "typedb_protocol_workspace_refs",
+    workspace_refs = [],
 )
