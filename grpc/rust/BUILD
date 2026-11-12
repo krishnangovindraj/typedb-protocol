@@ -21,6 +21,7 @@ rust_tonic_compile(
         "//proto:error-proto",
         "//proto:migration-proto",
         "//proto:options-proto",
+        "//proto:permissions-proto",
         "//proto:query-proto",
         "//proto:server-proto",
         "//proto:transaction-proto",

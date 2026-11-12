@@ -1,0 +1,110 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+syntax = "proto3";
+
+package typedb.protocol;
+
+import "proto/database.proto";
+import "proto/user.proto";
+
+message Permissions {
+
+  // RPC messages
+  message GrantPermission {
+    message Req {
+      Grantee grantee = 1;
+      Permission granted = 2;
+    }
+
+    message Res {}
+  }
+
+  message ListPermissions {
+    message Req {
+      Grantee grantee = 1;
+    }
+
+    message Res {
+      repeated Permission granted = 1;
+    }
+  }
+
+  message ListUserGroups {
+    message Req {}
+    message Res {
+      repeated UserGroup user_group = 1;
+    }
+  }
+
+  message ListUserGroupMembership {
+    message Req {
+      User user = 1;
+    }
+    message Res {
+      repeated UserGroup user_group = 1;
+    }
+  }
+
+  message ListUserGroupMembers {
+    message Req {
+      UserGroup user_group = 1;
+    }
+    message Res {
+      repeated User user = 1;
+    }
+  }
+
+  // General objects
+  message UserGroup {
+    string name = 1;
+  }
+
+  message Role {
+    string role = 1;
+  }
+
+  message Grantee {
+    oneof grantee {
+      User user = 1;
+      UserGroup user_group = 2;
+    }
+  }
+
+  message Permission {
+    oneof permission {
+      ManageUsers manage_users = 1;
+      ManageDatabases manage_databases = 2;
+      ManagePermissions manage_permissions = 3;
+
+      TransactionRead tx_read = 21;
+      TransactionWrite tx_write = 22;
+      ModifySchemaTypes modify_types = 23;
+      ModifySchemaRoles modify_roles = 24;
+
+      SchemaDefinedRole has_role = 41;
+    }
+
+    message ManageUsers {}
+    message ManageDatabases {}
+    message ManagePermissions {}
+
+    message TransactionRead {
+      Database database = 1;
+    }
+    message TransactionWrite {
+      Database database = 1;
+    }
+    message ModifySchemaTypes {
+      Database database = 1;
+    }
+    message ModifySchemaRoles {
+      Database database = 1;
+    }
+    message SchemaDefinedRole {
+      Database database = 1;
+      Role role = 2;
+    }
+  }
+}

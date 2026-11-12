@@ -9,6 +9,7 @@ import "proto/connection.proto";
 import "proto/database.proto";
 import "proto/server.proto";
 import "proto/user.proto";
+import "proto/permissions.proto";
 import "proto/transaction.proto";
 import "proto/migration.proto";
 
@@ -38,6 +39,13 @@ service TypeDB {
     // User API
     rpc users_update (User.Update.Req) returns (User.Update.Res);
     rpc users_delete (User.Delete.Req) returns (User.Delete.Res);
+
+    // Permissions API
+    rpc grant (Permissions.GrantPermission.Req) returns (Permissions.GrantPermission.Res);
+    rpc list_permissions (Permissions.ListPermissions.Req) returns (Permissions.ListPermissions.Res);
+    rpc list_user_groups (Permissions.ListUserGroups.Req) returns (Permissions.ListUserGroups.Res);
+    rpc list_user_group_membership (Permissions.ListUserGroupMembership.Req) returns (Permissions.ListUserGroupMembership.Res);
+    rpc list_user_group_members (Permissions.ListUserGroupMembers.Req) returns (Permissions.ListUserGroupMembers.Res);
 
     // Database Manager API
     rpc databases_get (DatabaseManager.Get.Req) returns (DatabaseManager.Get.Res);

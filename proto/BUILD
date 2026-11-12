@@ -14,6 +14,7 @@ proto_library(
         ":connection-proto",
         ":database-proto",
         ":migration-proto",
+        ":permissions-proto",
         ":server-proto",
         ":transaction-proto",
         ":user-proto",
@@ -89,6 +90,15 @@ proto_library(
 proto_library(
     name = "options-proto",
     srcs = ["options.proto"],
+)
+
+proto_library(
+    name = "permissions-proto",
+    srcs = ["permissions.proto"],
+    deps = [
+        ":database-proto",
+        ":user-proto",
+    ],
 )
 
 proto_library(
